@@ -1,0 +1,54 @@
+---
+title: "Image Segmentation"
+output: html_notebook
+---
+# 
+
+## Reading csv and some pre-processing
+```{r}
+setwd("C:/Users/vinayak/Desktop/FinalmileProject")
+flower<-read.csv("flower.csv",header=F)
+str(flower)
+```
+```{r}
+flowerMatrix<-as.matrix(flower)
+flowerVector<-as.vector(flowerMatrix)
+str(flowerVector)
+```
+## Orignal Image
+```{r}
+image(flowerMatrix,axes=F)
+```
+
+
+## Hierarrchial Clustering
+### Calculating distance between data points
+```{r}
+distance<-dist(flowerVector,method="euclidean")
+distance[[1]]
+```
+### Applying model
+```{r}
+clusterIntensity = hclust(distance, method="ward")
+plot(clusterIntensity)
+```
+* It seems taking two or thre cluster is reasonoable.
+```{r}
+#plot1<-rect.hclust(clusterIntensity, k = 3, border = "red")
+flowerClusters = cutree(clusterIntensity, k = 3)
+flowerClusters
+```
+# Analysis of different clusters
+```{r}
+tapply(flowerVector, flowerClusters, mean)
+```
+```{r}
+tapply(flowerVector,flowerClusters,summary)
+```
+# Giving the final segmented Image
+```{r}
+dim(flowerClusters) = c(50,50)
+image(flowerClusters, axes = FALSE)
+```
+
+
