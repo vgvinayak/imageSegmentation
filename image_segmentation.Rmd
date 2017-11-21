@@ -1,0 +1,55 @@
+---
+title: "Image Segmentation"
+output: rmarkdown::github_document
+---
+# 
+In computer vision, image segmentation is the process of partitioning a digital image into multiple segments (sets of pixels, also known as super-pixels). The goal of segmentation is to simplify and/or change the representation of an image into something that is more meaningful and easier to analyze. Image segmentation is typically used to locate objects and boundaries (lines, curves, etc.) in images. More precisely, image segmentation is the process of assigning a label to every pixel in an image such that pixels with the same label share certain characteristics.We will use method of clustering for Image segmentation.
+
+## Reading csv and some pre-processing
+```{r}
+setwd("C:/Users/vinayak/Desktop/FinalmileProject")
+flower<-read.csv("flower.csv",header=F)
+str(flower)
+```
+```{r}
+flowerMatrix<-as.matrix(flower)
+flowerVector<-as.vector(flowerMatrix)
+str(flowerVector)
+```
+## Orignal Image
+```{r}
+image(flowerMatrix,axes=F)
+```
+
+
+## Hierarrchial Clustering
+### Calculating distance between data points
+```{r}
+distance<-dist(flowerVector,method="euclidean")
+distance[[1]]
+```
+### Applying model
+```{r}
+clusterIntensity = hclust(distance, method="ward")
+plot(clusterIntensity)
+```
+* It seems taking two or thre cluster is reasonoable.
+```{r}
+#plot1<-rect.hclust(clusterIntensity, k = 3, border = "red")
+flowerClusters = cutree(clusterIntensity, k = 3)
+flowerClusters
+```
+# Analysis of different clusters
+```{r}
+tapply(flowerVector, flowerClusters, mean)
+```
+```{r}
+tapply(flowerVector,flowerClusters,summary)
+```
+# Giving the final segmented Image
+```{r}
+dim(flowerClusters) = c(50,50)
+image(flowerClusters, axes = FALSE)
+```
+
+
