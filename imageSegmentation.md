@@ -21,7 +21,9 @@ Ploting image
     image(healthyMatrix,axes=FALSE,col=grey(seq(0,1,length=256)))
 
 ![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-2-1.png)
-\#\# K-means Clustering
+
+K-means Clustering
+------------------
 
     set.seed(1)
     KMC = kmeans(healthyVector, centers = 5, iter.max = 1000)
@@ -100,3 +102,58 @@ Visualizing the clusters
     image(tumorClusters, axes = FALSE, col=rainbow(5))
 
 ![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-8-1.png)
+
+Here we find the Red part dominates in infected brain comapring to
+healthy brain,hence red part is the characterstics part in Tumor brain
+
+    image(tumorClusters==1, axes = FALSE, col=rainbow(2))
+
+![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-9-1.png)
+
+    image(tumorClusters==2,axes=FALSE,col=rainbow(2))
+
+![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-9-2.png)
+
+    image(tumorClusters==3, axes = FALSE, col=rainbow(2))
+
+![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-9-3.png)
+
+    image(tumorClusters==4, axes = FALSE, col=rainbow(2))
+
+![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-9-4.png)
+
+    image(tumorClusters==5, axes = FALSE, col=rainbow(2))
+
+![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-9-5.png)
+
+This symbolises Custer 1 depict the Tumor part
+
+Comparing defected part in healthy brain and tumor brain
+--------------------------------------------------------
+
+### Healthy brain
+
+    image(healthyClusters==1,axes=F,col=rainbow(2))
+
+![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-10-1.png)
+
+### Tumor brain
+
+    image(tumorClusters==1,axes=F,col=rainbow(2))
+
+![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-11-1.png)
+
+Analysis of infected partin tumor brain
+---------------------------------------
+
+    tumorClustersad<-as.vector(tumorClusters)
+    tumor12<-tumorVector[tumorClustersad==1]
+
+    summary(tumor12)
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##  0.3961  0.4275  0.4627  0.4933  0.5333  1.0000
+
+    hist(tumor12,xlab = "Intensity",main = "Histogram",xlim = c(0,1))
+
+![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-14-1.png)
