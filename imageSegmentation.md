@@ -63,7 +63,9 @@ Ploting the image with 5 clusters
     image(healthyClusters, axes = FALSE, col=rainbow(5))
 
 ![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-5-1.png)
-\# Apply to a test image
+
+Apply to a test image
+---------------------
 
     tumor = read.csv("tumor.csv", header=FALSE)
     tumorMatrix = as.matrix(tumor)
@@ -71,8 +73,9 @@ Ploting the image with 5 clusters
     image(tumorMatrix,axes=FALSE,col=grey(seq(0,1,length=256)))
 
 ![](imageSegmentation_files/figure-markdown_strict/unnamed-chunk-6-1.png)
-\#\# Applying clusters from before to new image, using the flexclust
-package
+
+Applying clusters from before to new image, using the flexclust package
+-----------------------------------------------------------------------
 
     library(flexclust)
 
